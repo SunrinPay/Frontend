@@ -4,14 +4,21 @@
 			<BackButton class="sendmoney__back" @click="$router.push('/')"></BackButton>
 			<div class="sendmoney__contentbox">
 				<h2>{{ getRecipient ? getRecipient + "님에게 " : "" }}송금하기</h2>
-				<p><NumberCounter :text="getTotal" :isNumberFormat="true" defaultChar="0"></NumberCounter>원</p>
+				<p>
+					<NumberCounter :text="getTotal" :isNumberFormat="true" defaultChar="0"></NumberCounter>원
+				</p>
 			</div>
 		</header>
 		<div v-if="!bank && !showRecipientInput">
 			<div class="sendmoney__numpad">
-				<div v-for="idx in 9" :key="idx" class="sendmoney__numpad__item" @click="appendTotalStr(idx)">{{ idx }}</div>
+				<div
+					v-for="idx in 9"
+					:key="idx"
+					class="sendmoney__numpad__item"
+					@click="()=>appendTotalStr(idx)"
+				>{{ idx }}</div>
 				<div class="sendmoney__numpad__item"></div>
-				<div class="sendmoney__numpad__item" @click="appendTotalStr(0)">0</div>
+				<div class="sendmoney__numpad__item" @click="()=>appendTotalStr(0)">0</div>
 				<div class="sendmoney__numpad__item">
 					<span @click="removeTotalStr">
 						<i class="iconify" data-icon="mdi-backspace"></i>
@@ -20,12 +27,24 @@
 			</div>
 			<button type="button" @click="showRecipientInput = true" class="send__money__btn">송금하기</button>
 			<br />
-			<button type="button" v-if="!getRecipient" @click="showBankList(true)" class="send__toss__btn">Toss로 보내기</button>
+			<button
+				type="button"
+				v-if="!getRecipient"
+				@click="()=>showBankList(true)"
+				class="send__toss__btn"
+			>Toss로 보내기</button>
 		</div>
 
 		<div v-if="showRecipientInput" class="sendmoney__recipientInput">
 			<form action="javascript:void(0)" @submit="submitForm">
-				<input type="email" v-model="recipient" v-if="!getRecipient" placeholder="받는 분 이메일 주소" :readonly="isLoading" required />
+				<input
+					type="email"
+					v-model="recipient"
+					v-if="!getRecipient"
+					placeholder="받는 분 이메일 주소"
+					:readonly="isLoading"
+					required
+				/>
 				<button type="submit" :disabled="isLoading">
 					<div v-if="!isLoading">승인</div>
 					<span v-else>
@@ -40,49 +59,122 @@
 		<!-- Toss 송금 -->
 		<div class="sendmoney__bank" :class="{ active: isShowBankList }">
 			<div class="sendmoney__bank__title">은행 선택</div>
-			<span @click="selectBank('NH농협')"><i class="iconify" data-icon="mdi-bank"></i>NH농협</span>
-			<span @click="selectBank('KB국민')"><i class="iconify" data-icon="mdi-bank"></i>KB국민</span>
-			<span @click="selectBank('신한')"><i class="iconify" data-icon="mdi-bank"></i>신한</span>
-			<span @click="selectBank('우리')"><i class="iconify" data-icon="mdi-bank"></i>우리</span>
-			<span @click="selectBank('하나')"><i class="iconify" data-icon="mdi-bank"></i>하나</span>
-			<span @click="selectBank('IBK기업')"><i class="iconify" data-icon="mdi-bank"></i>IBK기업</span>
-			<span @click="selectBank('SC제일')"><i class="iconify" data-icon="mdi-bank"></i>SC제일</span>
-			<span @click="selectBank('씨티')"><i class="iconify" data-icon="mdi-bank"></i>씨티</span>
-			<span @click="selectBank('KDB산업')"><i class="iconify" data-icon="mdi-bank"></i>KDB산업</span>
-			<span @click="selectBank('SBI저축은행')"><i class="iconify" data-icon="mdi-bank"></i>SBI저축은행</span>
-			<span @click="selectBank('새마을')"><i class="iconify" data-icon="mdi-bank"></i>새마을</span>
-			<span @click="selectBank('대구')"><i class="iconify" data-icon="mdi-bank"></i>대구</span>
-			<span @click="selectBank('광주')"><i class="iconify" data-icon="mdi-bank"></i>광주</span>
-			<span @click="selectBank('우체국')"><i class="iconify" data-icon="mdi-bank"></i>우체국</span>
-			<span @click="selectBank('신협')"><i class="iconify" data-icon="mdi-bank"></i>신협</span>
-			<span @click="selectBank('전북')"><i class="iconify" data-icon="mdi-bank"></i>전북</span>
-			<span @click="selectBank('경남')"><i class="iconify" data-icon="mdi-bank"></i>경남</span>
-			<span @click="selectBank('부산')"><i class="iconify" data-icon="mdi-bank"></i>부산</span>
-			<span @click="selectBank('수협')"><i class="iconify" data-icon="mdi-bank"></i>수협</span>
-			<span @click="selectBank('제주')"><i class="iconify" data-icon="mdi-bank"></i>제주</span>
-			<span @click="selectBank('저축은행')"><i class="iconify" data-icon="mdi-bank"></i>저축</span>
-			<span @click="selectBank('신림조합')"><i class="iconify" data-icon="mdi-bank"></i>신림조합</span>
-			<span @click="selectBank('케이뱅크')"><i class="iconify" data-icon="mdi-bank"></i>케이뱅크</span>
-			<span @click="selectBank('카카오뱅크')"><i class="iconify" data-icon="mdi-bank"></i>카카오뱅크</span>
-			<span @click="selectBank('HSBC')"><i class="iconify" data-icon="mdi-bank"></i>HSBC</span>
-			<span @click="selectBank('중국공상')"><i class="iconify" data-icon="mdi-bank"></i>중국공상</span>
-			<span @click="selectBank('JP모간')"><i class="iconify" data-icon="mdi-bank"></i>JP모간</span>
-			<span @click="selectBank('도이치')"><i class="iconify" data-icon="mdi-bank"></i>도이치</span>
-			<span @click="selectBank('BNP파리바')"><i class="iconify" data-icon="mdi-bank"></i>BNP파리바</span>
-			<span @click="selectBank('BOA')"><i class="iconify" data-icon="mdi-bank"></i>BOA</span>
-			<span @click="selectBank('중국건설')"><i class="iconify" data-icon="mdi-bank"></i>중국건설</span>
+			<span @click="()=>selectBank('NH농협')">
+				<i class="iconify" data-icon="mdi-bank"></i>NH농협
+			</span>
+			<span @click="()=>selectBank('KB국민')">
+				<i class="iconify" data-icon="mdi-bank"></i>KB국민
+			</span>
+			<span @click="()=>selectBank('신한')">
+				<i class="iconify" data-icon="mdi-bank"></i>신한
+			</span>
+			<span @click="()=>selectBank('우리')">
+				<i class="iconify" data-icon="mdi-bank"></i>우리
+			</span>
+			<span @click="()=>selectBank('하나')">
+				<i class="iconify" data-icon="mdi-bank"></i>하나
+			</span>
+			<span @click="()=>selectBank('IBK기업')">
+				<i class="iconify" data-icon="mdi-bank"></i>IBK기업
+			</span>
+			<span @click="()=>selectBank('SC제일')">
+				<i class="iconify" data-icon="mdi-bank"></i>SC제일
+			</span>
+			<span @click="()=>selectBank('씨티')">
+				<i class="iconify" data-icon="mdi-bank"></i>씨티
+			</span>
+			<span @click="()=>selectBank('KDB산업')">
+				<i class="iconify" data-icon="mdi-bank"></i>KDB산업
+			</span>
+			<span @click="()=>selectBank('SBI저축은행')">
+				<i class="iconify" data-icon="mdi-bank"></i>SBI저축은행
+			</span>
+			<span @click="()=>selectBank('새마을')">
+				<i class="iconify" data-icon="mdi-bank"></i>새마을
+			</span>
+			<span @click="()=>selectBank('대구')">
+				<i class="iconify" data-icon="mdi-bank"></i>대구
+			</span>
+			<span @click="()=>selectBank('광주')">
+				<i class="iconify" data-icon="mdi-bank"></i>광주
+			</span>
+			<span @click="()=>selectBank('우체국')">
+				<i class="iconify" data-icon="mdi-bank"></i>우체국
+			</span>
+			<span @click="()=>selectBank('신협')">
+				<i class="iconify" data-icon="mdi-bank"></i>신협
+			</span>
+			<span @click="()=>selectBank('전북')">
+				<i class="iconify" data-icon="mdi-bank"></i>전북
+			</span>
+			<span @click="()=>selectBank('경남')">
+				<i class="iconify" data-icon="mdi-bank"></i>경남
+			</span>
+			<span @click="()=>selectBank('부산')">
+				<i class="iconify" data-icon="mdi-bank"></i>부산
+			</span>
+			<span @click="()=>selectBank('수협')">
+				<i class="iconify" data-icon="mdi-bank"></i>수협
+			</span>
+			<span @click="()=>selectBank('제주')">
+				<i class="iconify" data-icon="mdi-bank"></i>제주
+			</span>
+			<span @click="()=>selectBank('저축은행')">
+				<i class="iconify" data-icon="mdi-bank"></i>저축
+			</span>
+			<span @click="()=>selectBank('신림조합')">
+				<i class="iconify" data-icon="mdi-bank"></i>신림조합
+			</span>
+			<span @click="()=>selectBank('케이뱅크')">
+				<i class="iconify" data-icon="mdi-bank"></i>케이뱅크
+			</span>
+			<span @click="()=>selectBank('카카오뱅크')">
+				<i class="iconify" data-icon="mdi-bank"></i>카카오뱅크
+			</span>
+			<span @click="()=>selectBank('HSBC')">
+				<i class="iconify" data-icon="mdi-bank"></i>HSBC
+			</span>
+			<span @click="()=>selectBank('중국공상')">
+				<i class="iconify" data-icon="mdi-bank"></i>중국공상
+			</span>
+			<span @click="()=>selectBank('JP모간')">
+				<i class="iconify" data-icon="mdi-bank"></i>JP모간
+			</span>
+			<span @click="()=>selectBank('도이치')">
+				<i class="iconify" data-icon="mdi-bank"></i>도이치
+			</span>
+			<span @click="()=>selectBank('BNP파리바')">
+				<i class="iconify" data-icon="mdi-bank"></i>BNP파리바
+			</span>
+			<span @click="()=>selectBank('BOA')">
+				<i class="iconify" data-icon="mdi-bank"></i>BOA
+			</span>
+			<span @click="()=>selectBank('중국건설')">
+				<i class="iconify" data-icon="mdi-bank"></i>중국건설
+			</span>
 		</div>
 		<div v-if="bank" class="sendmoney__toss">
 			<form action="javascript:void(0)" @submit="submitTossForm">
-				<div @click="showBankList(true)">
-					<input type="text" :value="bank || '은행 선택'" readonly /><span class="chevron_down"><i class="iconify" data-icon="mdi-chevron-down"></i></span>
+				<div @click="()=>showBankList(true)">
+					<input type="text" :value="bank || '은행 선택'" readonly />
+					<span class="chevron_down">
+						<i class="iconify" data-icon="mdi-chevron-down"></i>
+					</span>
 				</div>
-				<input type="tel" v-model="accountNo" placeholder="계좌번호" minlength="6" required @keydown="qrData = ''" />
+				<input
+					type="tel"
+					v-model="accountNo"
+					placeholder="계좌번호"
+					minlength="6"
+					required
+					@keydown="()=>{qrData = ''}"
+				/>
 				<div v-if="accountNo">
 					<button type="submit" @click="openToss = false" style="margin-right:5px">QR 코드 생성</button>
 					<button type="submit" @click="openToss = true" style="margin-left:5px">Toss 앱에서 열기</button>
 				</div>
-				<br /><br />
+				<br />
+				<br />
 				<QRcode v-if="qrData && accountNo" :data="qrData" class="qr"></QRcode>
 			</form>
 		</div>
@@ -133,11 +225,14 @@ export default class SendMoney extends Vue {
 		return Number(this.totalString);
 	}
 
-	appendTotalStr(str: string | number) {
+	appendTotalStr(str: string | number): void {
 		this.totalString = this.totalString + str;
 	}
 	removeTotalStr() {
-		this.totalString = this.totalString.substring(0, this.totalString.length - 1);
+		this.totalString = this.totalString.substring(
+			0,
+			this.totalString.length - 1
+		);
 	}
 
 	async submitForm() {
@@ -161,8 +256,12 @@ export default class SendMoney extends Vue {
 	}
 
 	submitTossForm() {
-		if (!this.openToss) this.qrData = `supertoss://send?amount=${this.getAmount}&bank=${this.bank}&accountNo=${this.accountNo}`;
-		else window.open(`supertoss://send?amount=${this.getAmount}&bank=${this.bank}&accountNo=${this.accountNo}`);
+		if (!this.openToss)
+			this.qrData = `supertoss://send?amount=${this.getAmount}&bank=${this.bank}&accountNo=${this.accountNo}`;
+		else
+			window.open(
+				`supertoss://send?amount=${this.getAmount}&bank=${this.bank}&accountNo=${this.accountNo}`
+			);
 	}
 }
 </script>

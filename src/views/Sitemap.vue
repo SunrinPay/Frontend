@@ -92,8 +92,8 @@ import Receipt from "../components/intent/ReceiptIntent.vue";
 		ViewPager,
 		SalesChart,
 		BackButton,
-		Receipt
-	}
+		Receipt,
+	},
 })
 export default class Home extends Vue {
 	n: string = "25565";

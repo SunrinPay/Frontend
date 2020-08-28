@@ -24,7 +24,7 @@
 					<p v-for="(item, idx) in setting.operationHours" :key="idx">
 						<input type="text" v-model="item.range" placeholder="요일" @change="update('operationHours')" />
 						<input type="text" v-model="item.time" placeholder="시간대" @change="update('operationHours')" />
-						<span @click="removeTimesetItem(idx)" class="remove">
+						<span @click="()=>removeTimesetItem(idx)" class="remove">
 							<i class="iconify" data-icon="mdi-delete"></i>
 						</span>
 					</p>

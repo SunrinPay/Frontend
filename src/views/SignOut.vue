@@ -10,7 +10,10 @@
 		<span v-if="loading">
 			<i class="iconify loading" data-icon="mdi-loading"></i>
 		</span>
-		<p v-else>로그아웃 되었습니다.<br />잠시 후 메인으로 이동합니다.</p>
+		<p v-else>
+			로그아웃 되었습니다.
+			<br />잠시 후 메인으로 이동합니다.
+		</p>
 	</div>
 </template>
 
