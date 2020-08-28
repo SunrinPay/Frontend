@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuth() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return request.auth != null && get(/databases/$(database)/documents/accounts/$(request.auth.uid)).data.isAdmin;
+    }
+  	match /accounts/{uid} {
+    	allow read;
+      allow create: if isAuth() && request.auth.uid == uid;
+      allow update: if isAuth();
+    }
+  	match /logs/{log} {
+      allow create;
+    }
+    match /orders/{orderID} {
+    	allow read: if isAuth();
+    	allow write: if isAdmin();
+    }
+    match /settings/settings {
+    	allow read, update: if isAdmin();
+    }
+    match /stock/{stockItem} {
+    	allow read, write: if isAdmin();
+    }
+    match /transactions/{transaction} {
+    	allow read, create: if isAuth();
+    }
+  }
+}

@@ -1,0 +1,26 @@
+$primary-color: #538fff;
+
+$background-color: white;
+$content-color: #919eab;
+$disable-color: #585858;
+$text-color: black;
+$gray-text-color: #707070;
+$select-color: rgba(39, 49, 66, 0.2);
+
+$large-size: 2.75em;
+$normal-size: 2.15em;
+
+$small-large-size: 1.8em;
+$small-normal-size: 1.5em;
+$small-up-size: 1.2em;
+$small-size: 1.1em;
+
+// Dark Mode
+@media (prefers-color-scheme: dark) {
+	$background-color: #373737 !global;
+	$content-color: #282828 !global;
+	$disable-color: #aeaeae !global;
+	$text-color: white !global;
+	$gray-text-color: #979797 !global;
+	$select-color: #919eab !global;
+}

@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=0.7" />
+		<link rel="icon" href="<%= htmlWebpackPlugin.options.favicon_ico %>" />
+		<meta name="theme-color" content="#373737" />
+
+		<link rel="apple-touch-icon" sizes="57x57" href="<%= htmlWebpackPlugin.options.apple_icon_57x57 %>" />
+		<link rel="apple-touch-icon" sizes="60x60" href="<%= htmlWebpackPlugin.options.apple_icon_60x60 %>" />
+		<link rel="apple-touch-icon" sizes="72x72" href="<%= htmlWebpackPlugin.options.apple_icon_72x72 %>" />
+		<link rel="apple-touch-icon" sizes="76x76" href="<%= htmlWebpackPlugin.options.apple_icon_76x76 %>" />
+		<link rel="apple-touch-icon" sizes="114x114" href="<%= htmlWebpackPlugin.options.apple_icon_114x114 %>" />
+		<link rel="apple-touch-icon" sizes="120x120" href="<%= htmlWebpackPlugin.options.apple_icon_120x120 %>" />
+		<link rel="apple-touch-icon" sizes="144x144" href="<%= htmlWebpackPlugin.options.apple_icon_144x144 %>" />
+		<link rel="apple-touch-icon" sizes="152x152" href="<%= htmlWebpackPlugin.options.apple_icon_152x152 %>" />
+		<link rel="apple-touch-icon" sizes="180x180" href="<%= htmlWebpackPlugin.options.apple_icon_180x180 %>" />
+		<link rel="icon" type="image/png" sizes="192x192" href="<%= htmlWebpackPlugin.options.android_icon_192x192 %>" />
+		<link rel="icon" type="image/png" sizes="16x16" href="<%= htmlWebpackPlugin.options.favicon_16x16 %>" />
+		<link rel="icon" type="image/png" sizes="32x32" href="<%= htmlWebpackPlugin.options.favicon_32x32 %>" />
+		<link rel="icon" type="image/png" sizes="96x96" href="<%= htmlWebpackPlugin.options.favicon_96x96 %>" />
+		<link rel="manifest" href="<%= BASE_URL %>manifest.json" />
+		<meta name="msapplication-TileColor" content="#ffffff" />
+		<meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.options.ms_icon_144x144 %>" />
+
+		<meta name="title" content="SunrinPay" />
+		<meta name="subject" content="빠르고 편리한 결제 시스템" />
+		<meta name="description" content="빠르고 편리한 결제 시스템" />
+		<meta name="keywords" content="sunrin pay,sunrin,pay,선린페이" />
+		<meta property="og:title" content="SunrinPay" />
+		<meta property="og:description" content="빠르고 편리한 결제 시스템" />
+		<meta property="og:image" content="<%= htmlWebpackPlugin.options.banner %>" />
+		<meta property="og:type" content="website" />
+
+		<title><%= htmlWebpackPlugin.options.title %></title>
+	</head>
+	<body>
+		<noscript>
+			<strong>JavaScript를 활성화해주세요.</strong>
+		</noscript>
+		<div id="app"></div>
+	</body>
 </html>
